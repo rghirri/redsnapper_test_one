@@ -20,6 +20,7 @@
    <thead>
     <th>Name</th>
     <th>Email</th>
+    <th>Team</th>
     <th></th>
    </thead>
    <tbody>
@@ -31,6 +32,9 @@
      </td>
      <td>
       {{ $user->email }}
+     </td>
+     <td>
+      {{ $user->teams->count() }}
      </td>
      <td>
       <a href="{{ route('user.edit', $user->id) }}" class="btn btn-info btn-sm text-white">

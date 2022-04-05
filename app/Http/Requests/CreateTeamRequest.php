@@ -25,7 +25,8 @@ class CreateTeamRequest extends FormRequest
     {
         return [
             
-            'name' => 'required|unique:teams'
+            'name'  => 'required|unique:teams',
+            'user' => 'required'
 
         ];
     }

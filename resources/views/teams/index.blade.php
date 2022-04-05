@@ -18,6 +18,7 @@
   <table class="table">
    <thead>
     <th>Name</th>
+    <th>User</th>
     <th></th>
    </thead>
    <tbody>
@@ -26,6 +27,9 @@
     <tr>
      <td>
       {{ $team->name }}
+     </td>
+     <td>
+      {{ $team->user->name }}
      </td>
      <td>
       <a href="{{ route('teams.edit', $team->id) }}" class="btn btn-info btn-sm text-white">

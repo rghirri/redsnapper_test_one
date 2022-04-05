@@ -34,6 +34,21 @@
    </div>
 
    <div class="form-group">
+    <label for="user">User</label>
+    <select name="user" id="user" name="user" class="form-control">
+     @foreach($users as $user)
+     <option value="{{ $user->id }}" @if(isset($team)) @if($user->id == $team->user_id)
+      selected
+      @endif
+      @endif
+      >
+      {{ $user->name }}
+     </option>
+     @endforeach
+    </select>
+   </div>
+
+   <div class="form-group">
     <button class="btn btn-success">
      {{ isset($team) ? 'Update Team' : 'Add Team' }}
     </button>
