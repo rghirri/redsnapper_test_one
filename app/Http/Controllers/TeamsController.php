@@ -1,13 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
-use App\Http\Requests\CreateUserRequest;
-use App\Http\Requests\UpdateUserController;
+use App\Http\Requests\CreateTeamRequest;
+use App\Http\Requests\UpdateTeamRequest;
+use App\Team;
 use App\User;
 
-class UserController extends Controller
+use Illuminate\Http\Request;
+
+class TeamsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +17,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('users.index')->with('users', User::all());
+        return view('teams.index')->with('teams', Team::all());
     }
 
     /**
@@ -26,7 +27,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('users.create');
+        return view('teams.create')->with('teams', Team::all());
     }
 
     /**
@@ -35,21 +36,19 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateUserRequest $request)
+    public function store(CreateTeamRequest $request)
     {
-
-        User::Create([
+        
+        Team::Create([
             
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => $request->password
+            'name' => $request->name
 
         ]);
 
-        session()->flash('success', 'User Created successfully.');
+        session()->flash('success', 'Team Created successfully.');
 
-        return redirect(route('user.index'));
-        
+        return redirect(route('teams.index'));
+
     }
 
     /**
@@ -71,8 +70,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::find($id);
-        return view('users.create')->with('user', $user);
+        $team = Team::find($id);
+        return view('teams.create')->with('team', $team);
     }
 
     /**
@@ -82,22 +81,22 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateUserController $request, $id)
+    public function update(UpdateTeamRequest $request, $id)
     {
-        $user = User::find($id);
         
-        $user->update([
+        $team = Team::find($id);
+        
+        $team->update([
 
-            'name'      => $request->name,
-            'email'     => $request->email,
-            'password'  => $request->password
+            'name' => $request->name
 
         ]);
-        $user->save();
+        
+        $team->save();
 
-        session()->flash('success', 'User Updated Successfully.');
+        session()->flash('success', 'Team Updated Successfully.');
 
-        return redirect(route('user.index'));
+        return redirect(route('teams.index'));
 
     }
 
@@ -109,13 +108,14 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::find($id);
+        
+        $team = Team::find($id);
 
-        $user->delete();
+        $team->delete();
 
-        session()->flash('success', 'User Deleted Successfully.');
+        session()->flash('success', 'Team Deleted Successfully.');
 
-        return redirect(route('user.index'));
+        return redirect(route('teams.index'));
+
     }
-    
 }

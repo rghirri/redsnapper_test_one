@@ -4,39 +4,34 @@
 
 <div class="d-flex justify-content-end mb-2">
 
- <a href="{{ route('user.create') }}" class="btn btn-success float-right">
-  Add User
+ <a href="{{ route('teams.create') }}" class="btn btn-success float-right">
+  Create Team
  </a>
 
 </div>
 
-
 <div class="card card-default">
  <div class="card-header">
-  Users
+  Teams
  </div>
  <div class="card-body">
   <table class="table">
    <thead>
     <th>Name</th>
-    <th>Email</th>
     <th></th>
    </thead>
    <tbody>
-    @foreach($users as $user)
+    @foreach($teams as $team)
 
     <tr>
      <td>
-      {{ $user->name }}
+      {{ $team->name }}
      </td>
      <td>
-      {{ $user->email }}
-     </td>
-     <td>
-      <a href="{{ route('user.edit', $user->id) }}" class="btn btn-info btn-sm text-white">
+      <a href="{{ route('teams.edit', $team->id) }}" class="btn btn-info btn-sm text-white">
        Edit
       </a>
-      <button class="btn btn-danger btn-sm" onclick="handleDelete({{ $user->id }})">
+      <button class="btn btn-danger btn-sm" onclick="handleTeamDelete({{ $team->id }})">
        Delete
       </button>
      </td>
@@ -47,24 +42,24 @@
   </table>
 
   <!-- Modal -->
-  <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+  <div class="modal fade" id="deleteTeamModal" tabindex="-1" role="dialog" aria-labelledby="deleteTeamModalLabel"
    aria-hidden="true">
    <div class="modal-dialog" role="document">
 
-    <form action="" method="POST" id="deleteUserForm">
+    <form action="" method="POST" id="deleteTeamForm">
 
      @csrf
      @method('DELETE')
 
      <div class="modal-content">
       <div class="modal-header">
-       <h5 class="modal-title" id="deleteModalLabel">Delete User</h5>
+       <h5 class="modal-title" id="deleteTeamModalLabel">Delete Team</h5>
        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
        </button>
       </div>
       <div class="modal-body">
-       <p class="text-center text-bold">Are you sure you want to delete user?</p>
+       <p class="text-center text-bold">Are you sure you want to delete team?</p>
       </div>
       <div class="modal-footer">
        <button type="button" class="btn btn-secondary" data-dismiss="modal">No, Go Back</button>
@@ -84,18 +79,15 @@
 @section('scripts')
 
 <script>
-function handleDelete(id) {
+function handleTeamDelete(id) {
 
- var form = document.getElementById('deleteUserForm');
+ var form = document.getElementById('deleteTeamForm');
 
- form.action = '/user/' + id
+ form.action = '/teams/' + id
 
- $('#deleteModal').modal('show')
-
- // console.log('deleting', form)
+ $('#deleteTeamModal').modal('show')
 
 }
 </script>
-
 
 @endsection

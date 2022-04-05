@@ -10,6 +10,12 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+
+    public function teams()
+    {
+        return $this->hasMany(Team::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *
