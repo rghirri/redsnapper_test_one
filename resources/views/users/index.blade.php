@@ -20,7 +20,8 @@
    <thead>
     <th>Name</th>
     <th>Email</th>
-    <th>Team</th>
+    <th>Role</th>
+    <th>Team Count</th>
     <th></th>
    </thead>
    <tbody>
@@ -32,6 +33,9 @@
      </td>
      <td>
       {{ $user->email }}
+     </td>
+     <td>
+      {{ $user->role }}
      </td>
      <td>
       {{ $user->teams->count() }}
