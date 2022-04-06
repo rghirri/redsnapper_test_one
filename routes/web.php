@@ -21,6 +21,13 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('user', UserController::class);
-
 Route::resource('teams', TeamsController::class);
+
+
+Route::middleware(['auth', 'admin'])->group(function () {
+
+    Route::resource('user', UserController::class);
+    Route::post('user/{user}/make-admin', 'UserController@makeAdmin')->name('user.make-admin');
+    Route::post('user/{user}/make-writer', 'UserController@makeWriter')->name('user.make-writer');
+
+});

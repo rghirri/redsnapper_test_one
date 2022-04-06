@@ -18,6 +18,7 @@
  <div class="card-body">
   <table class="table">
    <thead>
+    <th>Image</th>
     <th>Name</th>
     <th>Email</th>
     <th>Role</th>
@@ -28,18 +29,49 @@
     @foreach($users as $user)
 
     <tr>
+
+     <td>
+      <img width="50px" height="50px" style="border-radius:50%;" src="{{ Gravatar::get($user->email) }}" alt="">
+     </td>
+
      <td>
       {{ $user->name }}
      </td>
+
      <td>
       {{ $user->email }}
      </td>
+
      <td>
       {{ $user->role }}
      </td>
+
      <td>
       {{ $user->teams->count() }}
      </td>
+
+     <td>
+
+      @if(!$user->isAdmin())
+      <form action="{{ route('user.make-admin', $user->id) }}" method="POST">
+       @csrf
+       <button type="submit" class="btn btn-success btn-sm">
+        Make Admin
+       </button>
+      </form>
+
+      @else
+
+      <form action="{{ route('user.make-writer', $user->id) }}" method="POST">
+       @csrf
+       <button type="submit" class="btn btn-success btn-sm">
+        Make Writer
+       </button>
+      </form>
+
+      @endif
+     </td>
+
      <td>
       <a href="{{ route('user.edit', $user->id) }}" class="btn btn-info btn-sm text-white">
        Edit
